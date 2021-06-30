@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
-import org.pingpong.restquarkusjpa.domain.Person;
+import org.pingpong.restquarkusjpa.domain.Order;
 import org.pingpong.restquarkusjpa.domain.Wizard;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -58,9 +58,23 @@ public class RepoTest {
 	public void test_mapping_wizard() {
 		Wizard squib = em.find(Wizard.class, "Marius Black");
 		Assertions.assertThat(squib).isNotNull();
-		Assertions.assertThat(squib.toString()).containsIgnoringCase("Marius Black");
+		Assertions.assertThat(squib.toString()).contains("Marius Black");
 		Assertions.assertThat(squib.toString()).contains("15"); //wizard_dexterity
 		Assertions.assertThat(squib.toString()).contains("SQUIB");  //tipo enumerado
+	}
+
+	/**
+	 * Completa la definicion y el mapping
+	 * de la clase Order a la tabla t_orders
+	 * El id de esta clase ha de seguir una estrategia
+	 * Identity
+	 */
+	@Test 
+	public void test_mapping_order() {
+		Order pedido = em.find(Order.class, 1L);
+		Assertions.assertThat(pedido).isNotNull();
+		Assertions.assertThat(pedido.toString()).contains("Marius Black");
+		Assertions.assertThat(pedido.toString()).containsIgnoringCase("Elixir of the Mongoose");
 	}
 
 }

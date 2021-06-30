@@ -21,7 +21,7 @@ alter table t_orders
     add constraint orden_item_fk 
     foreign key (ord_item) references t_items;
 alter table t_orders 
-    add constraint orden_user_fk 
+    add constraint orden_wizard_fk 
     foreign key (ord_wizard) references t_wizards;
 insert into t_wizards 
     (wizard_name, wizard_dexterity, wizard_person) 
@@ -32,8 +32,10 @@ insert into t_items
     (item_id, item_name, item_quality, item_type) 
     values 
         (1L, '+5 Dexterity Vest', 20, 'MagicalItem'),
-        (2L, 'Elixir of the Mongoose', 7, 'MagicalItem');
+        (2L, 'Elixir of the Mongoose', 7, 'MagicalItem'),
+        (3L, 'Aged Brie', 10, 'MagicalItem');
 insert into t_orders 
     (ord_id, ord_wizard, ord_item) 
     values 
-        (1,'Marius Black',2L);
+        (1L, 'Marius Black', 2L),
+        (2L, 'Marius Black', 3L);
