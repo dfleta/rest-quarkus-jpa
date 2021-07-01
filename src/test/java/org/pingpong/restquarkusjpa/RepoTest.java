@@ -221,7 +221,12 @@ public class RepoTest {
 	 * e inyectalo en los casos test
 	 */
 	@Test
-	public void test_servicio() {
+	public void test_servicio_existe() {
 		Assertions.assertThat(servicio).isNotNull();
 	}
+
+	/**
+	 * Inyecta el repositorio en el servicio
+	 */
+
 }
