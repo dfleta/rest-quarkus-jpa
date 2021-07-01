@@ -1,4 +1,4 @@
-package org.pingpong.repositorio;
+package org.pingpong.restquarkusjpa.repositorio;
 
 import javax.enterprise.context.ApplicationScoped;
 

@@ -1,4 +1,4 @@
-package org.pingpong.repositorio;
+package org.pingpong.restquarkusjpa.repositorio;
 
 import java.util.List;
 import java.util.Optional;

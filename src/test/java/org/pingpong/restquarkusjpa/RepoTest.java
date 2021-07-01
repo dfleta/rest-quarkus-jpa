@@ -9,10 +9,10 @@ import javax.transaction.Transactional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.pingpong.repositorio.Repositorio;
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
 import org.pingpong.restquarkusjpa.domain.Order;
 import org.pingpong.restquarkusjpa.domain.Wizard;
+import org.pingpong.restquarkusjpa.repositorio.Repositorio;
 
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -155,7 +155,7 @@ public class RepoTest {
 
 	/**
 	 * Implementa el metodo createItem() del repositorio
-	 * que crea un item indicado en la base de datos.
+	 * que crea un item en la base de datos.
 	 */
 	@Test
 	@Transactional
@@ -206,10 +206,12 @@ public class RepoTest {
 
 		// los sulfuras se han guardado
 		List<MagicalItem> manos = repo.loadItems("Sulfuras, Hand of Ragnaros");
-		Assertions.assertThat(manos).isNotNull();
-		Assertions.assertThat(manos).isNotEmpty().hasSize(2);
+		Assertions.assertThat(manos).isNotNull().isNotEmpty().hasSize(2);
 		Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Sulfuras, Hand of Ragnaros");
 		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", -1);
 	}
+
+
+
 
 }
