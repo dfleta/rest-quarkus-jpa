@@ -12,10 +12,19 @@ import org.pingpong.restquarkusjpa.repositorio.Repositorio;
 public class ServiceItem implements Servicio {
 
     @Inject
-    public Repositorio repo;
+    Repositorio repo;
 
     public Optional<MagicalItem> cargaItem(String name) {
         return repo.loadItem(name);
+    }
+
+    public Optional<MagicalItem> creaItem(MagicalItem item) {
+        repo.createItem(item.getName(), item.getQuality(), item.getType());
+        return repo.loadItems(item.getName()).stream().filter(
+            it -> it.getName().equals(item.getName()) 
+                  && it.getQuality() == item.getQuality() 
+                  && it.getType().equals(item.getType()))
+            .findFirst();
     }
     
 }

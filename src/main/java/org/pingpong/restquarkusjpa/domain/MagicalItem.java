@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,11 +27,14 @@ public class MagicalItem {
 	private @Getter long id;
 
 	@Column(name="item_name")
+	@NotEmpty
 	private @NonNull @Getter @Setter String name;
 	
 	@Column(name="item_quality")
+	@NotNull
 	private @NonNull @Getter @Setter int quality;
 
 	@Column(name = "item_type", insertable = false, updatable = false)
+	@NotEmpty
 	private @NonNull @Getter @Setter String type;
 }

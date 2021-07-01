@@ -3,8 +3,11 @@ package org.pingpong.restquarkusjpa;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -39,6 +42,22 @@ public class Resource {
             Response.status(Response.Status.OK).entity(item).build():
             Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    @POST
+    @Path("/item")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    // curl -d '{"name": "Sorting Hat", "quality": "50", "type": "sapient artefact"}' 
+    // -H "Content-Type: application/json" -X POST http://localhost:8080/item -v
+    public Response post(@Valid MagicalItem item) {
+        Optional<MagicalItem> itemPersisted = service.creaItem(item);
+        return itemPersisted.isPresent()?
+            Response.status(Response.Status.CREATED).entity(itemPersisted.get()).build():
+            Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+
 
 
 }
