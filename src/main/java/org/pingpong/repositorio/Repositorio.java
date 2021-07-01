@@ -28,6 +28,10 @@ public class Repositorio {
         return this.repoItem.find("name", name).firstResultOptional();
     }
 
+    public List<MagicalItem> loadItems(String name) {
+        return this.repoItem.list("name", name);
+    }
+
     @Transactional
     public void createItem(String name, int quality, String type) {
         MagicalItem item = new MagicalItem(name, quality, type);
