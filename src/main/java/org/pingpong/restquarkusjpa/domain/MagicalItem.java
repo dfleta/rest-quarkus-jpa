@@ -10,12 +10,14 @@ import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name="t_items")
-@NoArgsConstructor @EqualsAndHashCode @ToString
+@NoArgsConstructor @EqualsAndHashCode @ToString @RequiredArgsConstructor
 public class MagicalItem {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +25,11 @@ public class MagicalItem {
 	private @Getter long id;
 
 	@Column(name="item_name")
-	private @Getter @Setter String name;
+	private @NonNull @Getter @Setter String name;
 	
 	@Column(name="item_quality")
-	private @Getter @Setter int quality;
+	private @NonNull @Getter @Setter int quality;
 
 	@Column(name = "item_type", insertable = false, updatable = false)
-	private @Getter @Setter String type;
-    
+	private @NonNull @Getter @Setter String type;
 }

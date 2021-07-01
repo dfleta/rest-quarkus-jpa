@@ -3,6 +3,7 @@ package org.pingpong.restquarkusjpa;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -130,5 +131,20 @@ public class RepoTest {
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
 	}
 
+	/**
+	 * Implementa el metodo createItem() del repositorio
+	 * que crea un item indicado en la base de datos.
+	 */
+	@Test
+	@Transactional
+	public void test_create_item() {
+		Assertions.assertThat(repo).isNotNull();
 
+		repo.createItem("Guardapelo", 100, "MagicalItem");
+
+		MagicalItem relic = repo.loadItem("Guardapelo").get();
+		Assertions.assertThat(relic).isNotNull();
+		Assertions.assertThat(relic.getName()).isEqualTo("Guardapelo");
+		Assertions.assertThat(relic.getQuality()).isEqualTo(100);
+	}
 }
