@@ -17,8 +17,8 @@ public class Repositorio {
     @Inject
     RepoItem repoItem;
 
-    public Wizard loadWizard(String name) {
-        return this.repoWizard.findById(name);
+    public Optional<Wizard> loadWizard(String name) {
+        return this.repoWizard.findByIdOptional(name);
     }
 
     public Optional<MagicalItem> loadItem(String name) {
