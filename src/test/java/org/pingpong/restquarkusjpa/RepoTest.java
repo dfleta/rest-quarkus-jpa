@@ -197,11 +197,19 @@ public class RepoTest {
 		
 		repo.createItems(items);
 
+		// los pases se han guardado
 		MagicalItem backstage = repo.loadItem("Backstage passes to a TAFKAL80ETC concert").get();
 		Assertions.assertThat(backstage).isNotNull();
 		Assertions.assertThat(backstage.getName()).isEqualTo("Backstage passes to a TAFKAL80ETC concert");
 		Assertions.assertThat(backstage.getQuality()).isEqualTo(15);
 		Assertions.assertThat(backstage.getType()).isEqualTo("MagicalItem");
+
+		// los sulfuras se han guardado
+		List<MagicalItem> manos = repo.loadItems("Sulfuras, Hand of Ragnaros");
+		Assertions.assertThat(manos).isNotNull();
+		Assertions.assertThat(manos).isNotEmpty().hasSize(2);
+		Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Sulfuras, Hand of Ragnaros");
+		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", -1);
 	}
 
 }
