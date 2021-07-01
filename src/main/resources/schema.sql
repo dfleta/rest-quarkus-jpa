@@ -33,7 +33,8 @@ insert into t_items
     values 
         (1L, '+5 Dexterity Vest', 20, 'MagicalItem'),
         (2L, 'Elixir of the Mongoose', 7, 'MagicalItem'),
-        (3L, 'Aged Brie', 10, 'MagicalItem');
+        (3L, 'Aged Brie', 10, 'MagicalItem'),
+        (4L, 'Aged Brie', 0, 'MagicalItem');
 insert into t_orders 
     (ord_id, ord_wizard, ord_item) 
     values 
