@@ -1,10 +1,12 @@
 package org.pingpong.restquarkusjpa;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.pingpong.repositorio.Repositorio;
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
 import org.pingpong.restquarkusjpa.domain.Order;
 import org.pingpong.restquarkusjpa.domain.Wizard;
@@ -16,6 +18,9 @@ public class RepoTest {
 
     @PersistenceContext
 	EntityManager em;
+
+	@Inject
+	Repositorio repo;
 
     /**
 	 * Tests sobre los mappings
@@ -69,12 +74,36 @@ public class RepoTest {
 	 * El id de esta clase ha de seguir una estrategia
 	 * Identity
 	 */
-	@Test 
+	@Test
 	public void test_mapping_order() {
 		Order pedido = em.find(Order.class, 1L);
 		Assertions.assertThat(pedido).isNotNull();
 		Assertions.assertThat(pedido.toString()).contains("Marius Black");
 		Assertions.assertThat(pedido.toString()).containsIgnoringCase("Elixir of the Mongoose");
+	}
+
+	/**
+	 * Crea una clase llamada Repositorio
+	 * e inyectala en los casos test
+	 * (ha de ser un bean) 
+	 */
+	@Test
+	public void test_repositorio_existe() {
+		Assertions.assertThat(repo).isNotNull();
+	}
+
+	/**
+	 * Implementa el metodo loadWizard del repositorio
+	 * que devuelve el mago/a con el nombre indicado
+	 */
+	@Test
+	public void test_load_wizard() {
+		Assertions.assertThat(repo).isNotNull();
+		Wizard squib = repo.loadWizard("Hermione");
+		Assertions.assertThat(squib).isNotNull();
+		Assertions.assertThat(squib.toString()).contains("Hermione");
+		Assertions.assertThat(squib.toString()).contains("100");
+		Assertions.assertThat(squib.toString()).contains("MUDBLOOD");
 	}
 
 }
