@@ -13,6 +13,7 @@ import org.pingpong.restquarkusjpa.domain.MagicalItem;
 import org.pingpong.restquarkusjpa.domain.Order;
 import org.pingpong.restquarkusjpa.domain.Wizard;
 import org.pingpong.restquarkusjpa.repositorio.Repositorio;
+import org.pingpong.restquarkusjpa.service.ServiceItem;
 
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -24,6 +25,9 @@ public class RepoTest {
 
 	@Inject
 	Repositorio repo;
+
+	@Inject
+    ServiceItem servicio;
 
     /**
 	 * Tests sobre los mappings
@@ -211,7 +215,13 @@ public class RepoTest {
 		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", -1);
 	}
 
-
-
-
+	/**
+	 * Implementa un servicio, 
+	 * indica que es un bean
+	 * e inyectalo en los casos test
+	 */
+	@Test
+	public void test_servicio() {
+		Assertions.assertThat(servicio).isNotNull();
+	}
 }
