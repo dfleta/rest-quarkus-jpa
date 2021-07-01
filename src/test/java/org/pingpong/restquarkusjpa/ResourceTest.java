@@ -107,16 +107,16 @@ public class ResourceTest {
 
         // El item se crea si todas sus propiedades son NO nulas ni vacias
 		given()
-            .body("{\"name\": \"Sorting Hat\", \"quality\": \"50\", \"type\": \"sapient artefact\"}")
+            .body("{\"name\": \"Aged Brie\", \"quality\": \"50\", \"type\": \"MagicalItem\"}")
             .header("Content-Type", MediaType.APPLICATION_JSON)
         .when()
             .post("/item")
         .then()
             .statusCode(201)
             .contentType(ContentType.JSON)
-            .body("name", equalTo("Sorting Hat"),
+            .body("name", equalTo("Aged Brie"),
                   "quality", equalTo(50),
-                  "type", equalTo("sapient artefact"));
+                  "type", equalTo("MagicalItem"));
     }
         
     /**
