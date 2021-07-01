@@ -1,5 +1,6 @@
 package org.pingpong.repositorio;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
 import org.pingpong.restquarkusjpa.domain.Wizard;
+
 
 @ApplicationScoped
 public class Repositorio {
@@ -30,6 +32,11 @@ public class Repositorio {
     public void createItem(String name, int quality, String type) {
         MagicalItem item = new MagicalItem(name, quality, type);
         this.repoItem.persist(item);
+    }
+
+    @Transactional
+    public void createItems(List<MagicalItem> items) {
+        this.repoItem.persist(items);
     }
     
 }

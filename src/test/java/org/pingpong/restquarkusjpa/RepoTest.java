@@ -1,5 +1,7 @@
 package org.pingpong.restquarkusjpa;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -146,5 +148,40 @@ public class RepoTest {
 		Assertions.assertThat(relic).isNotNull();
 		Assertions.assertThat(relic.getName()).isEqualTo("Guardapelo");
 		Assertions.assertThat(relic.getQuality()).isEqualTo(100);
+		Assertions.assertThat(relic.getType()).isEqualTo("MagicalItem");
+
 	}
+
+	/**
+	 * Implementa el metodo createItems() del repositorio
+	 * que crea los items indicados en la base de datos.
+	 * 
+	 * Asegurate de que el metodo loadItem() anterior
+	 * devueve el primer item cuyo nombre
+	 * coincida con el especificado, sino, tu codigo
+	 * devolvera uno de los pases a backstage que no
+	 * es el que buscamos.
+	 */
+
+	@Test
+	@Transactional
+	public void test_create_items() {
+		Assertions.assertThat(repo).isNotNull();
+
+		List<MagicalItem> items = List.of(
+			new MagicalItem("Sulfuras, Hand of Ragnaros", 0, "MagicalItem"),
+			new MagicalItem("Sulfuras, Hand of Ragnaros", -1, "MagicalItem"),
+			new MagicalItem("Backstage passes to a TAFKAL80ETC concert", 15, "MagicalItem"),
+			new MagicalItem("Backstage passes to a TAFKAL80ETC concert", 10, "MagicalItem"),
+			new MagicalItem("Backstage passes to a TAFKAL80ETC concert", 5, "MagicalItem"));
+		
+		repo.createItems(items);
+
+		MagicalItem backstage = repo.loadItem("Backstage passes to a TAFKAL80ETC concert").get();
+		Assertions.assertThat(backstage).isNotNull();
+		Assertions.assertThat(backstage.getName()).isEqualTo("Backstage passes to a TAFKAL80ETC concert");
+		Assertions.assertThat(backstage.getQuality()).isEqualTo(15);
+		Assertions.assertThat(backstage.getType()).isEqualTo("MagicalItem");
+	}
+
 }
