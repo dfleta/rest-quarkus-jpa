@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
 import org.pingpong.restquarkusjpa.domain.Wizard;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+
 
 @ApplicationScoped
 public class Repositorio {
@@ -41,6 +43,16 @@ public class Repositorio {
     @Transactional
     public void createItems(List<MagicalItem> items) {
         this.repoItem.persist(items);
+    }
+
+    @Transactional
+    public void deleteItem(MagicalItem item) {
+        
+        PanacheQuery<MagicalItem> target = this.repoItem.find("name = ?1 and quality = ?2 and type = ?3", item.getName(), item.getQuality(), item.getType());
+
+        if (target.firstResultOptional().isPresent()) {
+            this.repoItem.delete(target.firstResultOptional().get());
+        }
     }
     
 }

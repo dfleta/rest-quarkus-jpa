@@ -19,7 +19,9 @@ create table t_orders (
     primary key (ord_id));
 alter table t_orders
     add constraint orden_item_fk 
-    foreign key (ord_item) references t_items;
+    foreign key (ord_item) references t_items
+        ON DELETE SET NULL
+        ON UPDATE CASCADE;
 alter table t_orders 
     add constraint orden_wizard_fk 
     foreign key (ord_wizard) references t_wizards;
@@ -34,7 +36,8 @@ insert into t_items
         (1L, '+5 Dexterity Vest', 20, 'MagicalItem'),
         (2L, 'Elixir of the Mongoose', 7, 'MagicalItem'),
         (3L, 'Aged Brie', 10, 'MagicalItem'),
-        (4L, 'Aged Brie', 0, 'MagicalItem');
+        (4L, 'Aged Brie', 0, 'MagicalItem'),
+        (5L, '+5 Dexterity Vest', 40, 'MagicalItem');
 insert into t_orders 
     (ord_id, ord_wizard, ord_item) 
     values 
