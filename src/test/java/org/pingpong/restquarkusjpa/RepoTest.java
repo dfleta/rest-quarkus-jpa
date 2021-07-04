@@ -154,7 +154,7 @@ public class RepoTest {
 		Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Aged Brie");
 		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", 0);
 
-		// no existe el item
+		// si no existe el item
 		Assertions.assertThat(repo.loadItems("Varita de Sauco")).isEmpty();
 	}
 
@@ -177,11 +177,11 @@ public class RepoTest {
 		Assertions.assertThat(item.getName()).isEqualTo("Aged Brie");
 		Assertions.assertThat(item.getQuality()).isZero();
 
-		// no existe el item
+		// si no existe el item
 		brie = new MagicalItem("Aged Brie", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem(brie)).isEmpty();
 	}
-	
+
 	/**
 	 * Implementa el metodo createItem() del repositorio
 	 * que crea un item en la base de datos.
@@ -265,7 +265,7 @@ public class RepoTest {
 		MagicalItem vest = em.find(MagicalItem.class, 1L);
 		Assertions.assertThat(vest).isNull();
 
-		// no existe el item
+		// Si no existe el item
 		item = new MagicalItem("Varita de Sauco", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
 
@@ -288,6 +288,7 @@ public class RepoTest {
 
 	/**
 	 * Recuerda inyectar el repositorio en el servicio
+	 * y continua completando los test del Resources.
 	 */
 
 }
