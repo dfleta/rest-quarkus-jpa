@@ -32,8 +32,8 @@ public class RepoTest {
     /**
 	 * Tests sobre los mappings
 	 * 
-	 * Observa el esquema de la base de datos que espera 
-	 * la aplicacion en el fichero:
+	 * Observa el esquema de la base de datos 
+	 * en el fichero:
 	 * src/main/resources/schema.sql
 	 */
 	
@@ -48,9 +48,9 @@ public class RepoTest {
 	public void test_mapping_MagicalItem() {
 		MagicalItem elixir = em.find(MagicalItem.class, 2L);
 		Assertions.assertThat(elixir).isNotNull();
-		Assertions.assertThat(elixir.toString()).containsIgnoringCase("Elixir of the Mongoose");
+		Assertions.assertThat(elixir.toString()).containsIgnoringCase("Elixir of the Mongoose"); // item_name
 		Assertions.assertThat(elixir.toString()).contains("7"); // item_quality
-		Assertions.assertThat(elixir.toString()).contains("MagicalItem");
+		Assertions.assertThat(elixir.toString()).contains("MagicalItem"); // item_type
 		Assertions.assertThat(elixir.getId()).isEqualTo(2L);
 	}
     
@@ -63,7 +63,7 @@ public class RepoTest {
 	 * MUGGLE, SQUIB, NOMAJ, MUDBLOOD
 	 * 
 	 * La anotacion javax.persistence para mapear 
-	 * una propiedad Enum es
+	 * a una tabla una propiedad Enum es
 	 * 	@Enumerated(EnumType.STRING)
 	 */
 	@Test
@@ -85,8 +85,8 @@ public class RepoTest {
 	public void test_mapping_order() {
 		Order pedido = em.find(Order.class, 1L);
 		Assertions.assertThat(pedido).isNotNull();
-		Assertions.assertThat(pedido.toString()).contains("Marius Black");
-		Assertions.assertThat(pedido.toString()).containsIgnoringCase("Elixir of the Mongoose");
+		Assertions.assertThat(pedido.toString()).contains("Marius Black"); //ord_wizard
+		Assertions.assertThat(pedido.toString()).containsIgnoringCase("Elixir of the Mongoose"); //ord_item
 	}
 
 	/**
@@ -103,6 +103,7 @@ public class RepoTest {
 	 * Implementa el metodo loadWizard del repositorio
 	 * que devuelve un Optional del mago/a con el nombre indicado
 	 */
+	/*
 	@Test
 	public void test_load_wizard() {
 		Assertions.assertThat(repo).isNotNull();
@@ -114,11 +115,11 @@ public class RepoTest {
 
 		// no existe el mago
 		Assertions.assertThat(repo.loadWizard("Severus Snape")).isEmpty();
-	}
+	}*/
 
 	/**
 	 * Implementa el metodo loadItem() del repositorio
-	 * que devuelve un Optional del Item con el nombre indicado
+	 * que devuelve un Optional del Item con el nombre indicado.
 	 * 
 	 * Ojo que el nombre del item no es la clave primaria.
 	 * 
@@ -158,6 +159,30 @@ public class RepoTest {
 	}
 
 	/**
+	 * Implementa el metodo loadItem(name, quality, type) 
+	 * del repositorio que devuelve un Optional del Item
+	 * con el nombre indicado.
+	 *  
+	 * El item devuelto ha de tener el mismo 
+     * name, quality y type que el de la peticion
+     * y no cualquier otro item de la base de datos
+     * que tenga sólo el mismo nombre.
+	 */
+	@Test
+	public void test_load_item_equal() {
+		Assertions.assertThat(repo).isNotNull();
+		MagicalItem brie = new MagicalItem("Aged Brie", 0, "MagicalItem");
+		MagicalItem item = repo.loadItem(brie).get();
+		Assertions.assertThat(item).isNotNull();
+		Assertions.assertThat(item.getName()).isEqualTo("Aged Brie");
+		Assertions.assertThat(item.getQuality()).isZero();
+
+		// no existe el item
+		brie = new MagicalItem("Aged Brie", 1000, "MagicalItem");
+		Assertions.assertThat(repo.loadItem(brie)).isEmpty();
+	}
+	
+	/**
 	 * Implementa el metodo createItem() del repositorio
 	 * que crea un item en la base de datos.
 	 */
@@ -173,7 +198,6 @@ public class RepoTest {
 		Assertions.assertThat(relic.getName()).isEqualTo("Guardapelo");
 		Assertions.assertThat(relic.getQuality()).isEqualTo(100);
 		Assertions.assertThat(relic.getType()).isEqualTo("MagicalItem");
-
 	}
 
 	/**
