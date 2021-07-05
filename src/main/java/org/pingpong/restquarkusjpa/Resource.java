@@ -26,9 +26,9 @@ public class Resource {
     ServiceItem service;
 
     @GET
+    @Path("/itemcrudos")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("/itemcrudos")
     public String wellcome() {
         return "CRUD de Items!";
     }
@@ -70,20 +70,16 @@ public class Resource {
         Response.status(Response.Status.NOT_FOUND).build():
         Response.status(Response.Status.OK).entity(items).build();
     }
-
-    /*
+    
     @DELETE
+    @Path("/item/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     // curl -d '{"name": "Aged Brie", "quality": "50", "type": "MagicalItem"}' 
-    // -H "Content-Type: application/json" -X POST http://localhost:8080/item -v   
-    public List<MagicalItem> delete(@Valid MagicalItem item) {
+    // -H "Content-Type: application/json" -X DELETE http://localhost:8080/item -v   
+    public Response delete(@Valid MagicalItem item) {
         service.eliminaItem(item);
-        return service.cargaItems(item.getName());
-    }*/
-
-
-
-
+        return Response.status(Response.Status.OK).entity(service.cargaItems(item.getName())).build();
+    }
 }

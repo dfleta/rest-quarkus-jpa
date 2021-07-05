@@ -6,11 +6,13 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
@@ -107,15 +109,15 @@ public class ResourceTest {
 
         // El item se crea si todas sus propiedades son NO nulas ni vacias
 		given()
-            .body("{\"name\": \"Aged Brie\", \"quality\": \"50\", \"type\": \"MagicalItem\"}")
+            .body("{\"name\": \"Elixir of the Mongoose\", \"quality\": \"14\", \"type\": \"MagicalItem\"}")
             .header("Content-Type", MediaType.APPLICATION_JSON)
         .when()
             .post("/item")
         .then()
             .statusCode(201)
             .contentType(ContentType.JSON)
-            .body("name", equalTo("Aged Brie"),
-                  "quality", equalTo(50),
+            .body("name", equalTo("Elixir of the Mongoose"),
+                  "quality", equalTo(14),
                   "type", equalTo("MagicalItem"));
     }
         
@@ -199,19 +201,18 @@ public class ResourceTest {
 	 * El servicio utiliza el repositorio
 	 * para hacer la consulta a la base de datos.
      */
-    /*
+    
     @Test
     public void test_delete_item() {
         
         given()
-            .body("{\"name\": \"+5 Dexterity Vest\", \"quality\": \"40\", \"type\": \"MagicalItem\"}")
+            .body("{\"name\": \"+5 Dexterity Vest\", \"quality\": \"60\", \"type\": \"MagicalItem\"}")
             .header("Content-Type", MediaType.APPLICATION_JSON)
         .when()
-            .delete("/item")
+            .delete("/item/")
         .then()
             .statusCode(200)
-            .body("$.size()", is(0));
-    }*/
-    
+            .body("$.size()", is(2));
+    }   
     
 }

@@ -19,6 +19,9 @@ public class ServiceItem implements Servicio {
         return repo.loadItem(name);
     }
 
+    public Optional<MagicalItem> cargaItem(MagicalItem item) {
+        return repo.loadItem(item);
+    }
     public List<MagicalItem> cargaItems(String name) {
         return repo.loadItems(name);
     }
