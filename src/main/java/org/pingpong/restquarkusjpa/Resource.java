@@ -40,7 +40,7 @@ public class Resource {
     // curl -w "\n" http://localhost:8080/item/Varita -v
     public Response getItem(@PathParam("name") String name) {
         Optional<MagicalItem> item = service.cargaItem(name);
-        return service.cargaItem(name).isPresent()? 
+        return item.isPresent()? 
             Response.status(Response.Status.OK).entity(item).build():
             Response.status(Response.Status.NOT_FOUND).build();
     }
