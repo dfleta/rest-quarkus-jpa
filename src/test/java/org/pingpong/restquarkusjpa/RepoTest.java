@@ -246,7 +246,7 @@ public class RepoTest {
      * Los parametros necesarios son:
      *      "name" con el nombre del item
 	 *      "quality" con la calidad del item
-	 *      "type" con el tio de item.
+	 *      "type" con el tipo de item.
      * 
      * El item eliminado ha de tener el mismo 
      * name, quality y type que el de la peticion

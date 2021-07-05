@@ -1,6 +1,7 @@
 package org.pingpong.restquarkusjpa.service;
 
 import java.util.Optional;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,13 +19,18 @@ public class ServiceItem implements Servicio {
         return repo.loadItem(name);
     }
 
-    public Optional<MagicalItem> creaItem(MagicalItem item) {
-        repo.createItem(item.getName(), item.getQuality(), item.getType());
-        return repo.loadItems(item.getName()).stream().filter(
-            it -> it.getName().equals(item.getName()) 
-                  && it.getQuality() == item.getQuality() 
-                  && it.getType().equals(item.getType()))
-            .findFirst();
+    public List<MagicalItem> cargaItems(String name) {
+        return repo.loadItems(name);
     }
-    
+
+    public Optional<MagicalItem> creaItem(MagicalItem item) {
+
+        repo.createItem(item.getName(), item.getQuality(), item.getType());
+
+        return repo.loadItem(item);
+    }
+
+    public void eliminaItem(MagicalItem item) {
+        repo.deleteItem(item);
+    }    
 }
