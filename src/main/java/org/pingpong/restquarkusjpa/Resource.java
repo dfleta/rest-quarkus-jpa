@@ -76,7 +76,7 @@ public class Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    // curl -d '{"name": "Aged Brie", "quality": "50", "type": "MagicalItem"}' 
+    // curl -d '{"name": "+5 Dexterity Vest", "quality": "60", "type": "MagicalItem"}' 
     // -H "Content-Type: application/json" -X DELETE http://localhost:8080/item -v   
     public Response delete(@Valid MagicalItem item) {
         service.eliminaItem(item);

@@ -57,11 +57,17 @@ public class Repositorio {
 
     @Transactional
     public void deleteItem(MagicalItem item) {
-        
-        PanacheQuery<MagicalItem> target = this.repoItem.find("name = ?1 and quality = ?2 and type = ?3", item.getName(), item.getQuality(), item.getType());
 
-        if (target.firstResultOptional().isPresent()) {
-            this.repoItem.delete(target.firstResultOptional().get());
+        // Reutilizar load_item(MagicalItem item)
+        // Dejo la query panache para mostrar esta 
+        // funcionalidad de Panache Repository
+
+        PanacheQuery<MagicalItem> targetQuery = this.repoItem.find("name = ?1 and quality = ?2 and type = ?3", item.getName(), item.getQuality(), item.getType());
+
+        Optional<MagicalItem> resultQuery = targetQuery.firstResultOptional();
+
+        if (resultQuery.isPresent()) {
+            this.repoItem.delete(resultQuery.get());
         }
     }
     
