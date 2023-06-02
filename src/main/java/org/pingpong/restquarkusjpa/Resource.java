@@ -62,8 +62,8 @@ public class Resource {
     @GET
     @Path("/items/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    // curl -w "\n" http://localhost:8080/item/Aged%20Brie -v
-    // curl -w "\n" http://localhost:8080/item/Varita -v
+    // curl -w "\n" http://localhost:8080/items/Aged%20Brie -v
+    // curl -w "\n" http://localhost:8080/items/Varita -v
     public Response getItems(@PathParam("name") String name) {
         List<MagicalItem> items = service.cargaItems(name);
         return items.isEmpty()? 

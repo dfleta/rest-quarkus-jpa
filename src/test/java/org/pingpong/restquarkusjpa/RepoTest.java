@@ -288,7 +288,7 @@ public class RepoTest {
 
 	/**
 	 * Recuerda inyectar el repositorio en el servicio
-	 * y continua completando los test del Resources.
+	 * y continua completando los test de ResourceTest.
 	 */
 
 }
