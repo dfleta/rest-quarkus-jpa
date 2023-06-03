@@ -37,4 +37,5 @@ public class MagicalItem {
 	@Column(name = "item_type", insertable = false, updatable = false)
 	@NotEmpty
 	private @NonNull @Getter @Setter String type;
+
 }
