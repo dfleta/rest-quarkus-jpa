@@ -44,5 +44,4 @@ insert into t_orders
     (ord_id, ord_wizard, ord_item) 
     values 
         (1L, 'Marius Black', 2L),
-        (2L, 'Marius Black', 3L),
-        (3L, 'Hermione', 5L);
+        (2L, 'Marius Black', 3L);

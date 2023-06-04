@@ -1,10 +1,12 @@
 package org.pingpong.restquarkusjpa;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.assertj.core.api.Assertions;
@@ -238,6 +240,39 @@ public class RepoTest {
 		Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Sulfuras, Hand of Ragnaros");
 		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", -1);
 	}
+
+	/**
+	 * Implementa el metodo placeOrder(id, wizzard, item) 
+	 * del repositorio que crea un pedido de un item para un mago
+	 * determinado.
+	 *  
+	 * Los magos/as mudblood NO pueden comprar un item.
+	 */
+
+	 @Test
+	 @Transactional
+	 public void test_pedido() {
+		Assertions.assertThat(repo).isNotNull();
+		Optional<Order> orden = repo.pedido("Hermione", "Elixir of the Mongoose");
+		Assertions.assertThat(orden).isEmpty();
+
+		orden = repo.pedido("Marius Black", "Elixir of the Mongoose");
+		Assertions.assertThat(orden).isNotEmpty();
+
+		Assertions.assertThat(orden.get().getId()).isNotZero();
+		Assertions.assertThat(orden.get().getWizard().getName()).isEqualTo("Marius Black");
+		Assertions.assertThat(orden.get().getItem().getName()).isEqualTo("Elixir of the Mongoose");
+ 
+		TypedQuery<Order> query = em.createQuery("select orden from Order orden join orden.wizard wizard where wizard.name = 'Marius Black'", Order.class);
+		List<Order> pedidos = query.getResultList();
+		 
+		Assertions.assertThat(pedidos).isNotNull().hasSize(3);
+		Assertions.assertThat(pedidos.get(2).getWizard().getName()).isEqualTo("Marius Black");
+		Assertions.assertThat(pedidos.get(2).getItem().getName()).isEqualToIgnoringCase("Elixir of the Mongoose");
+	 }
+
+	
+	
 
 
     /**

@@ -23,11 +23,11 @@ public class Order {
     
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ord_id")
-    private Long id; 
+    private @Getter Long id; 
     
     @ManyToOne
 	@JoinColumn(name="ord_wizard")
-	private Wizard wizard;
+	private @Getter @Setter Wizard wizard;
 	
 	// JoinColumn indica que Order es la propietaria de la relacion
 	// Al tener una columna "item_id" en la tabla "orders", se indica que Order es la entidad 
