@@ -77,7 +77,7 @@ public class Repositorio {
     }
 
     // contenido min eval: if-else
-    // reutilizar load_item load_wizzard
+    // reutilizar load_item load_wizard
     @Transactional
     public Optional<Order> placeOrder(String usuaria_nombre, String item_nombre) {
         Order orden = null;

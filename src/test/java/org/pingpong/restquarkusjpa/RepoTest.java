@@ -186,7 +186,7 @@ public class RepoTest {
 
 
 	/**
-	 * Implementa el metodo placeOrder(wizzard, item) del repositorio 
+	 * Implementa el metodo placeOrder(wizard, item) del repositorio 
 	 * que genera un pedido de un item para un mago determinado.
 	 * El pedido se guarda en la base de datos.
 	 *  
