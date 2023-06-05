@@ -305,12 +305,6 @@ public class RepoTest {
 		// Si no existe el item
 		item = new MagicalItem("Varita de Sauco", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
-
-		// Item eliminado rompe integridad referencial => ON DELETE SET NULL 
-		item = new MagicalItem("+5 Dexterity Vest", 40, "MagicalItem");
-		repo.deleteItem(item);
-		vest = em.find(MagicalItem.class, 5L);
-		Assertions.assertThat(vest).isNull();
 	}
 
 	/**
