@@ -76,20 +76,20 @@ public class Repositorio {
         }
     }
 
-        // contenido min eval: if-else
-        @Transactional
-        public Optional<Order> pedido(String usuaria_nombre, String item_nombre) {
-            Order orden = null;
-            Optional<Wizard> wizard = this.repoWizard.findByIdOptional(usuaria_nombre);
-            Optional<MagicalItem> item = this.repoItem.find("name = ?1", item_nombre).firstResultOptional();
-            if (wizard.isPresent() && item.isPresent() 
-                && ! wizard.get().getPerson().equals(Person.MUDBLOOD) ) {
-                orden = new Order();
-                orden.setWizard(wizard.get());
-                orden.setItem(item.get());
-                this.repoOrder.persist(orden);
-            }
-            return Optional.ofNullable(orden);
+    // contenido min eval: if-else
+    // reutilizar load_item load_wizzard
+    @Transactional
+    public Optional<Order> placeOrder(String usuaria_nombre, String item_nombre) {
+        Order orden = null;
+        Optional<Wizard> wizard = this.repoWizard.findByIdOptional(usuaria_nombre);
+        Optional<MagicalItem> item = this.repoItem.find("name = ?1", item_nombre).firstResultOptional();
+        if (wizard.isPresent() && item.isPresent() 
+            && ! wizard.get().getPerson().equals(Person.MUDBLOOD) ) {
+            orden = new Order();
+            orden.setWizard(wizard.get());
+            orden.setItem(item.get());
+            this.repoOrder.persist(orden);
         }
-    
+        return Optional.ofNullable(orden);
+    }
 }
