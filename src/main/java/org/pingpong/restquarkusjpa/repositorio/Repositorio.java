@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
+import org.pingpong.restquarkusjpa.domain.Order;
+import org.pingpong.restquarkusjpa.domain.Person;
 import org.pingpong.restquarkusjpa.domain.Wizard;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
@@ -21,6 +23,9 @@ public class Repositorio {
 
     @Inject
     RepoItem repoItem;
+
+    @Inject
+    RepoOrder repoOrder;
 
     public Optional<Wizard> loadWizard(String name) {
         return this.repoWizard.findByIdOptional(name);
@@ -70,5 +75,21 @@ public class Repositorio {
             this.repoItem.delete(resultQuery.get());
         }
     }
-    
+
+    // contenido min eval: if-else
+    // reutilizar load_item load_wizard
+    @Transactional
+    public Optional<Order> placeOrder(String usuaria_nombre, String item_nombre) {
+        Order orden = null;
+        Optional<Wizard> wizard = this.repoWizard.findByIdOptional(usuaria_nombre);
+        Optional<MagicalItem> item = this.repoItem.find("name = ?1", item_nombre).firstResultOptional();
+        if (wizard.isPresent() && item.isPresent() 
+            && ! wizard.get().getPerson().equals(Person.MUDBLOOD) ) {
+            orden = new Order();
+            orden.setWizard(wizard.get());
+            orden.setItem(item.get());
+            this.repoOrder.persist(orden);
+        }
+        return Optional.ofNullable(orden);
+    }
 }

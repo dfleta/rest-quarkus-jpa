@@ -25,6 +25,10 @@ public class ResourceTest {
 	 * Implementa una clase Resources que
 	 * añada una API REST a nuestra app.
 	 * Injecta el servicio en Resources.
+     * 
+     * Tpdas las peticiones http a la AP REST
+     * ha de pasar por el servicio antes de
+     * llegar al repositorio.
      */
 
     @Test
@@ -52,7 +56,7 @@ public class ResourceTest {
     /**
      * La peticion /item/{name} del controlador
      * ha de retornar el nombre y la quality del 
-     * primer item indicado de la base de datos.
+     * primer item del tipo indicado de la base de datos.
 	 * 
 	 * La consulta ha de redirigirse al servicio.
 	 * El servicio utiliza el repositorio

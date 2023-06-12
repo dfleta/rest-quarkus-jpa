@@ -28,4 +28,5 @@ public class Wizard {
 	@Column(name = "wizard_person")
 	@Enumerated(EnumType.STRING)
 	private @Getter @Setter Person person;
+
 }
