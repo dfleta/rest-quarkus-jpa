@@ -3,11 +3,11 @@ package org.pingpong.restquarkusjpa;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -64,7 +64,7 @@ public class RepoTest {
 	 * un tipo enumerado con los valores:
 	 * MUGGLE, SQUIB, NOMAJ, MUDBLOOD
 	 * 
-	 * La anotacion javax.persistence para mapear 
+	 * La anotacion jakarta.persistence para mapear 
 	 * a una tabla una propiedad Enum es
 	 * 	@Enumerated(EnumType.STRING)
 	 */

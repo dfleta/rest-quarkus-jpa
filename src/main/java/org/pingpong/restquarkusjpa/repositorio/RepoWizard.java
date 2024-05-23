@@ -1,6 +1,6 @@
 package org.pingpong.restquarkusjpa.repositorio;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.pingpong.restquarkusjpa.domain.Wizard;
 

@@ -3,8 +3,8 @@ package org.pingpong.restquarkusjpa.service;
 import java.util.Optional;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import org.pingpong.restquarkusjpa.domain.MagicalItem;
 import org.pingpong.restquarkusjpa.repositorio.Repositorio;
