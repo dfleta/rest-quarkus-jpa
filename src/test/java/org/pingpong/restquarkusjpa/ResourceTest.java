@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
-import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class ResourceTest {
 	 * añada una API REST a nuestra app.
 	 * Injecta el servicio en Resources.
      * 
-     * Tpdas las peticiones http a la AP REST
+     * Todas las peticiones http a la API REST
      * ha de pasar por el servicio antes de
      * llegar al repositorio.
      */
@@ -37,7 +37,8 @@ public class ResourceTest {
     }
 
     /**
-     * En el endpoint /itemcrudos
+     * En el endpoint
+     *     /itemcrudos
      * recibimos un TEXT con el mensaje
      * "CRUD de Items!""
      */
@@ -54,9 +55,11 @@ public class ResourceTest {
     }
 
     /**
-     * La peticion /item/{name} del controlador
+     * La peticion
+     *     /item/{name}
+     * del controlador
      * ha de retornar el nombre y la quality del 
-     * primer item del tipo indicado de la base de datos.
+     * primer item -del tipo indicado- de la base de datos.
 	 * 
 	 * La consulta ha de redirigirse al servicio.
 	 * El servicio utiliza el repositorio
@@ -111,15 +114,15 @@ public class ResourceTest {
 
         // El item se crea si todas sus propiedades son NO nulas ni vacias
 		given()
-            .body("{\"name\": \"Elixir of the Mongoose\", \"quality\": \"14\", \"type\": \"MagicalItem\"}")
+            .body("{\"name\": \"Resurrection Stone\", \"quality\": \"666\", \"type\": \"MagicalItem\"}")
             .header("Content-Type", MediaType.APPLICATION_JSON)
         .when()
             .post("/item")
         .then()
             .statusCode(201)
             .contentType(ContentType.JSON)
-            .body("name", equalTo("Elixir of the Mongoose"),
-                  "quality", equalTo(14),
+            .body("name", equalTo("Resurrection Stone"),
+                  "quality", equalTo(666),
                   "type", equalTo("MagicalItem"));
     }
         
@@ -150,7 +153,9 @@ public class ResourceTest {
     }
 
      /**
-     * La peticion /items/{name} del controlador
+     * La peticion
+     *  /items/{name} 
+     * del controlador
      * ha de retornar una lista de items 
      * de la base de datos como el indicado.
 	 * 

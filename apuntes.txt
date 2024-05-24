@@ -1,0 +1,3 @@
+https://docs.oracle.com/en/database/other-databases/nosql-database/23.3/sqlreferencefornosql/creating-tables-identity-column.html
+
+http://www.h2database.com/html/datatypes.html#bigint_type
