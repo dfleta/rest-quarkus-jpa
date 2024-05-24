@@ -33,7 +33,7 @@ public class Order {
 	// Al tener una columna "item_id" en la tabla "orders", se indica que Order es la entidad 
 	// propietaria de la relación, ya que contiene la clave foránea que establece la relación con 
 	// la tabla "items".
-	// Con el esquela de la bbdd proporcionado (ver schema.sql)
+	// Con el esquema de la bbdd proporcionado (ver schema.sql)
 	// Se establece una relación de uno a uno entre Order e Item, donde cada registro en la tabla
 	// "orders" está vinculado a un único registro en la tabla "items". Order es la entidad 
 	// propietaria de la relación al tener la clave foránea "item_id".

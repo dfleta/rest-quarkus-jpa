@@ -60,7 +60,7 @@ public class RepoTest {
 	 * Completa la definicion y el mapping
 	 * de la clase Wizards a la tabla t_wizards
 	 * 
-	 * Los Wizards tiene una propiedad "person" de
+	 * Los Wizards tienen una propiedad "person" de
 	 * un tipo enumerado con los valores:
 	 * MUGGLE, SQUIB, NOMAJ, MUDBLOOD
 	 * 
@@ -95,6 +95,9 @@ public class RepoTest {
 	 * Crea una clase llamada Repositorio
 	 * e inyectala en los casos test
 	 * (ha de ser un bean) 
+	 * 
+	 * @Inject
+	 * Repositorio repo;
 	 */
 	@Test
 	public void test_repositorio_existe() {
@@ -115,7 +118,7 @@ public class RepoTest {
 		Assertions.assertThat(squib.toString()).contains("100");
 		Assertions.assertThat(squib.toString()).contains("MUDBLOOD");
 
-		// no existe el mago
+		// test no existe el mago
 		Assertions.assertThat(repo.loadWizard("Severus Snape")).isEmpty();
 	}
 
@@ -136,7 +139,7 @@ public class RepoTest {
 		Assertions.assertThat(item.getName()).isEqualTo("Aged Brie");
 		Assertions.assertThat(item.getQuality()).isEqualTo(10);
 
-		// no existe el item
+		// test no existe el item
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
 	}
 
@@ -159,7 +162,7 @@ public class RepoTest {
 		Assertions.assertThat(item.getName()).isEqualTo("Aged Brie");
 		Assertions.assertThat(item.getQuality()).isZero();
 
-		// si no existe el item
+		// test no existe el item
 		brie = new MagicalItem("Aged Brie", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem(brie)).isEmpty();
 	}
@@ -180,7 +183,7 @@ public class RepoTest {
 		Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Aged Brie");
 		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", 0);
 
-		// si no existe el item
+		// test no existe el item
 		Assertions.assertThat(repo.loadItems("Varita de Sauco")).isEmpty();
 	}
 
@@ -197,7 +200,7 @@ public class RepoTest {
 	@Transactional
 	public void test_pedido() {
  
-	// Hermione no puede comprar items
+		// Hermione no puede comprar items
 		Assertions.assertThat(repo).isNotNull();
 		Optional<Order> orden = repo.placeOrder("Hermione", "Elixir of the Mongoose");
 		Assertions.assertThat(orden).isEmpty();
@@ -210,8 +213,8 @@ public class RepoTest {
 		Assertions.assertThat(orden.get().getWizard().getName()).isEqualTo("Marius Black");
 		Assertions.assertThat(orden.get().getItem().getName()).isEqualTo("Elixir of the Mongoose");
   
-		// query para obtener todos los pedidos de Marius de manera agnostica
-		// al patron DAO /Active record
+		// query para obtener todos los pedidos de Marius
+		// de manera agnostica al patron DAO /Active record
 		TypedQuery<Order> query = em.createQuery("select orden from Order orden join orden.wizard wizard where wizard.name = 'Marius Black'", Order.class);
 		List<Order> pedidos = query.getResultList();
 		  
@@ -296,11 +299,11 @@ public class RepoTest {
 		Assertions.assertThat(repo).isNotNull();
 
 		// Item eliminado porque no existe en orders => no rompe integridad referencial
-		MagicalItem item = new MagicalItem("+5 Dexterity Vest", 20, "MagicalItem");
+		MagicalItem item = new MagicalItem("Time-Turner", 200, "MagicalItem");
 		repo.deleteItem(item);
 
-		MagicalItem vest = em.find(MagicalItem.class, 1L);
-		Assertions.assertThat(vest).isNull();
+		MagicalItem travel = em.find(MagicalItem.class, 7L);
+		Assertions.assertThat(travel).isNull();
 
 		// Si no existe el item
 		item = new MagicalItem("Varita de Sauco", 1000, "MagicalItem");
@@ -311,6 +314,9 @@ public class RepoTest {
 	 * Implementa un servicio, 
 	 * indica que es un bean
 	 * e inyectalo en los casos test
+	 * 
+	 * @Inject
+	 * ServiceItem servicio;
 	 */
 	@Test
 	public void test_servicio_existe() {
